@@ -58,7 +58,6 @@ GEM
     execjs (2.2.2)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
-    hash-deep-merge (0.1.1)
     highcharts-rails (4.0.4.1)
       railties (>= 3.1)
     hike (1.2.3)
@@ -76,9 +75,6 @@ GEM
     json (1.8.2)
     jsonrates_client (0.1.0)
       httparty
-    lazy_high_charts (1.5.4)
-      bundler (>= 1.0)
-      hash-deep-merge
     libv8 (3.16.14.7)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
@@ -172,7 +168,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jsonrates_client
-  lazy_high_charts
   rails (= 4.2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
