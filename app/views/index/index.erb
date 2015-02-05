@@ -1,13 +1,14 @@
 <html>
 <head>
 	
+<script type="text/javascript">    
 $(function () {
     $('#container').highcharts({
         chart: {
             zoomType: 'x'
         },
         title: {
-            text: 'USD to EUR exchange rate from 2006 through 2008'
+            text: '<%= params['from'] %> to <%= params['to'] %> exchange rate from <%= params['dateStart'] %> through <%= params['dateEnd'] %>'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -16,7 +17,7 @@ $(function () {
         },
         xAxis: {
             type: 'datetime',
-            minRange: 14 * 24 * 3600000 // fourteen days
+            minRange: 14 * 24 * 3600000 // 14d
         },
         yAxis: {
             title: {
@@ -50,20 +51,30 @@ $(function () {
 
         series: [{
             type: 'area',
-            name: 'USD to EUR',
+            name: '<%= params['from'] %> to <%= params['to'] %>',
             pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2006, 0, 1),
-            data: <%= @data_points %>
+            pointStart: Date.parse('<%= params['dateStart'] %>'),
+            data: <%= @data_points.to_json.to_s.html_safe %>
         }]
     });
 });
+</script>
 
 </head>
 <body>
 
-Ok  <%= @msg %> 
+<%= form_tag("/", method: "get") do %>
+    <%= label_tag(:q, "Search for:") %>
+    <%= select_tag "from", options_for_select([ "USD", "EUR", "BRL" ], params['from']) %>
+    <%= select_tag "to", options_for_select([ "USD", "EUR", "BRL" ], params['to']) %>
+    <%= text_field_tag 'date_start', params['dateStart'] %>
+    <%= text_field_tag 'date_end', params['dateEnd'] %>
+    <%= submit_tag("Search") %>
+<% end %>
 
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<%= params['dateStart'] %>
 
 </body>
 </html>
